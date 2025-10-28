@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Optional: your global styles using utilities */
+body {
+  @apply bg-gradient-to-b from-slate-50 to-white text-slate-800;
+}

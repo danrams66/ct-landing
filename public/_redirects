@@ -1,0 +1,5 @@
+# Force www → apex (both http and https)
+http://www.corporateri.com/*  https://corporateri.com/:splat  301!
+https://www.corporateri.com/* https://corporateri.com/:splat  301!
+# Force http → https on apex
+http://corporateri.com/*      https://corporateri.com/:splat  301!
