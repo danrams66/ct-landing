@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,121 +39,121 @@
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <!-- Optional: Apple touch icon and PNG favicon -->
-  <!--
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  -->
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- LocalBusiness Schema -->
-<!-- Structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "LocalBusiness",
-      "@id": "https://corporateri.com/#org",
-      "name": "Corporate Transportation",
-      "url": "https://corporateri.com/",
-      "image": "https://corporateri.com/og.png",
-      "telephone": "+14012312228",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Rhode Island",
-        "addressRegion": "RI",
-        "addressCountry": "US"
-      },
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Rhode Island" },
-        { "@type": "AdministrativeArea", "name": "Massachusetts" }
-      ],
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-          "opens": "05:00",
-          "closes": "23:00"
-        }
-      ],
-      "sameAs": [
-        "https://maps.google.com/?q=Corporate+Transportation+Rhode+Island"
-      ],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+14012312228",
-          "contactType": "customer service",
-          "areaServed": "US"
-        }
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Transportation Services",
-        "itemListElement": [
-          {
-            "@type": "OfferCatalog",
-            "name": "Scheduled Rides",
-            "itemListElement": [
-              { "@type": "Offer", "name": "Medical Appointments Transportation" },
-              { "@type": "Offer", "name": "Airport Transfers (RI & MA)" },
-              { "@type": "Offer", "name": "Corporate Travel" }
-            ]
-          }
-        ]
-      },
-      "potentialAction": {
-        "@type": "ReserveAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://corporateri.com/#book"
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://corporateri.com/#org",
+        "name": "Corporate Transportation",
+        "url": "https://corporateri.com/",
+        "image": "https://corporateri.com/og.png",
+        "telephone": "+14012312228",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Rhode Island",
+          "addressRegion": "RI",
+          "addressCountry": "US"
         },
-        "result": {
-          "@type": "Reservation",
-          "name": "Ride Reservation"
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Rhode Island" },
+          { "@type": "AdministrativeArea", "name": "Massachusetts" }
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "05:00",
+            "closes": "23:00"
+          }
+        ],
+        "sameAs": [
+          "https://maps.google.com/?q=Corporate+Transportation+Rhode+Island"
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+14012312228",
+            "contactType": "customer service",
+            "areaServed": "US"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Transportation Services",
+          "itemListElement": [
+            {
+              "@type": "OfferCatalog",
+              "name": "Scheduled Rides",
+              "itemListElement": [
+                { "@type": "Offer", "name": "Medical Appointments Transportation" },
+                { "@type": "Offer", "name": "Airport Transfers (RI & MA)" },
+                { "@type": "Offer", "name": "Corporate Travel" }
+              ]
+            }
+          ]
+        },
+        "potentialAction": {
+          "@type": "ReserveAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://corporateri.com/#book" },
+          "result": { "@type": "Reservation", "name": "Ride Reservation" }
         }
+      },
+      {
+        "@type": "TransportService",
+        "name": "Corporate Transportation",
+        "provider": { "@id": "https://corporateri.com/#org" },
+        "areaServed": [
+          { "@type": "Place", "name": "Rhode Island" },
+          { "@type": "Place", "name": "Massachusetts" }
+        ],
+        "serviceType": ["Airport Rides","Corporate Travel","Medical Appointments Transportation"],
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "serviceUrl": "https://corporateri.com",
+          "availableLanguage": ["English"]
+        }
+      },
+      {
+        "@type": "Service",
+        "name": "Corporate Transportation",
+        "serviceType": ["Airport Rides","Medical Appointments Transportation","Corporate Travel"],
+        "provider": { "@id": "https://corporateri.com/#org" },
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Rhode Island" },
+          { "@type": "AdministrativeArea", "name": "Massachusetts" }
+        ]
       }
-    },
-    {
-      "@type": "TransportService",
-      "name": "Corporate Transportation",
-      "provider": { "@id": "https://corporateri.com/#org" },
-      "areaServed": [
-        { "@type": "Place", "name": "Rhode Island" },
-        { "@type": "Place", "name": "Massachusetts" }
-      ],
-      "serviceType": [
-        "Airport Rides",
-        "Corporate Travel",
-        "Medical Appointments Transportation"
-      ],
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://corporateri.com",
-        "availableLanguage": ["English"]
-      }
-    },
-    {
-      "@type": "Service",
-      "name": "Corporate Transportation",
-      "serviceType": [
-        "Airport Rides",
-        "Medical Appointments Transportation",
-        "Corporate Travel"
-      ],
-      "provider": { "@id": "https://corporateri.com/#org" },
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Rhode Island" },
-        { "@type": "AdministrativeArea", "name": "Massachusetts" }
-      ]
-    }
-  ]
-}
-</script>
+    ]
+  }
+  </script>
 
+  <!-- TEMP styles so it can’t be “invisible” -->
+  <style>
+    html,body { margin:0; background:#0b0f1a; color:#e9f2ff; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .hero { min-height: 100vh; display:grid; place-items:center; text-align:center; padding: 48px 20px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 48px); margin: 0 0 12px; }
+    .hero p { font-size: clamp(16px, 2vw, 20px); opacity:.9; margin: 0 0 24px; }
+    .cta { display:inline-block; padding:14px 22px; border-radius:12px; background:#0b5bd3; color:white; text-decoration:none; font-weight:700; }
+    .cta + .cta { margin-left: 12px; }
+  </style>
 </head>
+<body>
+  <section class="hero">
+    <div>
+      <h1>Corporate Transportation</h1>
+      <p>Reliable scheduled rides across Rhode Island & Massachusetts.</p>
+      <a class="cta" href="tel:+14012312228">Call 401-231-2228</a>
+      <a class="cta" href="#book">Book a Ride</a>
+      <p style="margin-top:16px;opacity:.7">Build check: <!-- update this text each deploy --> now</p>
+    </div>
+  </section>
+</body>
+</html>
