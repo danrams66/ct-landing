@@ -31,7 +31,6 @@
   <meta name="twitter:url" content="https://corporateri.com/" />
   <meta name="twitter:title" content="Corporate Transportation – Reliable Scheduled Rides" />
   <meta name="twitter:description" content="Professional, on-time scheduled rides for medical appointments and airport travel. Serving Rhode Island & Massachusetts." />
-  <meta name="twitter:image" content="https://corporateri.com/og.png" />
   <meta name="twitter:image:alt" content="Corporate Transportation — Reliable Scheduled Rides in Rhode Island & Massachusetts" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
@@ -107,6 +106,10 @@
     .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
     @media (max-width:900px){.cols{grid-template-columns:1fr}}
     .small{font-size:.9rem;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .col-span-2{grid-column:span 2/span 2}
+    #contact-form label{display:flex;flex-direction:column;gap:4px}
+    #contact-form input,#contact-form textarea{padding:12px;border-radius:12px;background:var(--bg);color:var(--text);border:1px solid var(--line);font-family:inherit}
   </style>
 </head>
 <body>
@@ -186,10 +189,35 @@
   </section>
 
   <!-- Contact -->
-  <section class="section">
+  <section id="contact" class="section">
     <div class="wrap">
       <h2>Contact</h2>
-      <p class="small">Questions or special assistance? Call <a href="tel:+14012312228">401-231-2228</a> or email <a href="mailto:info@corporateri.com">info@corporateri.com</a>.</p>
+      <form id="contact-form" class="card" novalidate>
+        <div class="grid">
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" required autocomplete="name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" required autocomplete="email" />
+          </label>
+          <label>
+            <span>Phone (optional)</span>
+            <input name="phone" type="tel" autocomplete="tel" />
+          </label>
+          <label class="col-span-2">
+            <span>Message</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+
+          <!-- Honeypot (spam trap) -->
+          <input type="text" name="company" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0" />
+
+          <button type="submit" class="btn col-span-2">Send message</button>
+          <p id="form-status" class="small col-span-2" role="status" style="text-align: center; margin-top: 1rem;"></p>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -209,5 +237,31 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const statusEl = document.getElementById('form-status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = 'Sending…';
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (data.company) { statusEl.textContent = 'Thanks!'; return; } // honeypot
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error('Request failed');
+        form.reset();
+        statusEl.textContent = 'Thanks — we’ll get back to you shortly.';
+      } catch (err) {
+        statusEl.textContent = 'Sorry, something went wrong. Please call 401-231-2228.';
+      }
+    });
+  </script>
 </body>
 </html>
