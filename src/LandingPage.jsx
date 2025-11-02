@@ -3,7 +3,7 @@ export default function LandingPage() {
     "https://embed.evertransit.com/schedule.html?theme=default&api_key=1bfea3c4963ae25000e9469cf2dfa04bb1c6832db2cca0aa760089e3704201d034";
   const PHONE_DISPLAY = "401-231-2228";
   const PHONE_TEL = "14012312228";
-  const EMAIL = "courttransdispatch@gmail.com";
+  const EMAIL = "info@corporateri.com";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800">
