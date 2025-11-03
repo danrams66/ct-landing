@@ -1,6 +1,8 @@
 // /api/contact.js
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed' });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ ok: false, error: 'Method not allowed' });
+  }
 
   const { name = '', email = '', phone = '', message = '', company = '' } = req.body || {};
 
@@ -11,21 +13,21 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok: false, error: 'Missing fields' });
 
   // Cloudflare Turnstile verification
-  const token = req.headers['cf-turnstile-token'] || req.body['cf-turnstile-response'];
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return res.status(500).json({ ok: false, error: 'TURNSTILE_SECRET_KEY missing' });
+  const token = req.body['cf-turnstile-response'];
+  if (!token) return res.status(400).json({ ok: false, error: 'Missing Turnstile token' });
 
-  try {
-    const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ secret, response: token || '' })
-    }).then(r => r.json());
+  // Verify Turnstile response
+  const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      secret: process.env.TURNSTILE_SECRET_KEY,
+      response: token
+    })
+  }).then(r => r.json());
 
-    if (!verify.success)
-      return res.status(400).json({ ok: false, error: 'Captcha failed' });
-  } catch {
-    return res.status(500).json({ ok: false, error: 'Captcha error' });
+  if (!verify.success) {
+    return res.status(403).json({ ok: false, error: 'Turnstile validation failed' });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -88,10 +90,24 @@ export default async function handler(req, res) {
     if (!main.ok || !confirm.ok)
       return res.status(500).json({ ok: false, error: 'Email send failed' });
 
-    return res.status(200).json({ ok: true });
   } catch (e) {
     return res.status(500).json({ ok: false, error: e.message });
   }
+
+  const SHEET_WEBHOOK = process.env.SHEET_WEBHOOK_URL;
+  if (SHEET_WEBHOOK) {
+    try {
+      await fetch(SHEET_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, message })
+      });
+    } catch (e) {
+      console.warn('Sheet log failed', e?.message || e);
+    }
+  }
+
+  return res.status(200).json({ ok: true });
 }
 
 function escape(s = '') {
