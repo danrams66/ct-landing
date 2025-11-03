@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <title>Corporate Transportation – Reliable Scheduled Rides in Rhode Island & Massachusetts</title>
   <meta name="title" content="Corporate Transportation – Reliable Scheduled Rides in Rhode Island & Massachusetts" />
@@ -289,6 +290,8 @@
           <!-- Honeypot (spam trap) -->
           <input type="text" name="company" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0" />
 
+          <div class="cf-turnstile col-span-2" data-sitekey="0x4AAAAAAB-fBOqguTxKmYYA" data-theme="dark"></div>
+
           <button type="submit" class="btn col-span-2">Send message</button>
           <p id="form-status" class="small col-span-2" role="status" style="text-align: center; margin-top: 1rem;"></p>
         </div>
@@ -327,7 +330,7 @@
       try {
         const res = await fetch('/api/contact', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'cf-turnstile-token': data['cf-turnstile-response'] },
           body: JSON.stringify(data),
         });
         if (!res.ok) throw new Error('Request failed');
